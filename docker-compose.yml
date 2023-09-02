@@ -1,0 +1,23 @@
+services:
+  db:
+    container_name: movie-review-db
+    image: postgres
+    environment:
+      POSTGRES_DB: movie-review
+      POSTGRES_USER: movie-review
+      POSTGRES_PASSWORD: movie-review
+      PGDATA: /data/movie-review
+    volumes:
+      - db:/data/movie-review
+    ports:
+      - "5332:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:
