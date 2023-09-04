@@ -1,9 +1,6 @@
 package com.xtommas.movie_review.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,32 +9,43 @@ import java.util.Objects;
 @Entity
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "customer_id_sequence",
+            sequenceName = "customer_id_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer_id_sequence"
+    )
     private Long id;
     private String title;
+    @Column(length = 512)
     private String overview;
+    private Integer runtime;
     private ArrayList<String> genres;
     private String language;
     private String poster;
     private String trailer;
     private float starRating;
-    private ArrayList<String> cast;
+    private ArrayList<String> actors;
     private Date releaseDate;
     private String director;
 
     public Movie() {
     }
 
-    public Movie(Long id, String title, String overview, ArrayList<String> genres, String language, String poster, String trailer, float starRating, ArrayList<String> cast, Date releaseDate, String director) {
+    public Movie(Long id, String title, String overview, Integer runtime, ArrayList<String> genres, String language, String poster, String trailer, float starRating, ArrayList<String> actors, Date releaseDate, String director) {
         this.id = id;
         this.title = title;
         this.overview = overview;
+        this.runtime = runtime;
         this.genres = genres;
         this.language = language;
         this.poster = poster;
         this.trailer = trailer;
         this.starRating = starRating;
-        this.cast = cast;
+        this.actors = actors;
         this.releaseDate = releaseDate;
         this.director = director;
     }
@@ -66,6 +74,13 @@ public class Movie {
         this.overview = overview;
     }
 
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
     public ArrayList<String> getGenres() {
         return genres;
     }
@@ -107,11 +122,11 @@ public class Movie {
     }
 
     public ArrayList<String> getCast() {
-        return cast;
+        return actors;
     }
 
-    public void setCast(ArrayList<String> cast) {
-        this.cast = cast;
+    public void setCast(ArrayList<String> actors) {
+        this.actors = actors;
     }
 
     public Date getReleaseDate() {
@@ -135,12 +150,12 @@ public class Movie {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return Float.compare(starRating, movie.starRating) == 0 && Objects.equals(id, movie.id) && Objects.equals(title, movie.title) && Objects.equals(overview, movie.overview) && Objects.equals(genres, movie.genres) && Objects.equals(language, movie.language) && Objects.equals(poster, movie.poster) && Objects.equals(trailer, movie.trailer) && Objects.equals(cast, movie.cast) && Objects.equals(releaseDate, movie.releaseDate) && Objects.equals(director, movie.director);
+        return Float.compare(starRating, movie.starRating) == 0 && Objects.equals(id, movie.id) && Objects.equals(title, movie.title) && Objects.equals(overview, movie.overview) && Objects.equals(genres, movie.genres) && Objects.equals(language, movie.language) && Objects.equals(poster, movie.poster) && Objects.equals(trailer, movie.trailer) && Objects.equals(actors, movie.actors) && Objects.equals(releaseDate, movie.releaseDate) && Objects.equals(director, movie.director);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, overview, genres, language, poster, trailer, starRating, cast, releaseDate, director);
+        return Objects.hash(id, title, overview, genres, language, poster, trailer, starRating, actors, releaseDate, director);
     }
 
     @Override
@@ -154,7 +169,7 @@ public class Movie {
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
                 ", starRating=" + starRating +
-                ", cast=" + cast +
+                ", actors=" + actors +
                 ", releaseDate=" + releaseDate +
                 ", director='" + director + '\'' +
                 '}';
