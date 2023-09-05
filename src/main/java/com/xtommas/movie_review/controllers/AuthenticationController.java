@@ -1,5 +1,7 @@
 package com.xtommas.movie_review.controllers;
 
+import com.xtommas.movie_review.DTOs.LoginDTO;
+import com.xtommas.movie_review.DTOs.LoginResponseDTO;
 import com.xtommas.movie_review.DTOs.RegistrationDTO;
 import com.xtommas.movie_review.entities.User;
 import com.xtommas.movie_review.services.AuthenticationService;
@@ -19,6 +21,12 @@ public class AuthenticationController {
     @PostMapping("/register")
     public User registerUser(@RequestBody RegistrationDTO body) {
         return authenticationService.registerUser(body.getName(), body.getEmail(), body.getUsername(), body.getPassword(), body.getPicture());
+    }
+
+    @PostMapping("/login")
+    public LoginResponseDTO loginUser(@RequestBody LoginDTO body) {
+        return authenticationService.loginUser(body.getUsername(), body.getPassword());
+
     }
 
 
