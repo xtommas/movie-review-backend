@@ -10,13 +10,13 @@ import java.util.Objects;
 public class Movie {
     @Id
     @SequenceGenerator(
-            name = "customer_id_sequence",
-            sequenceName = "customer_id_sequence",
+            name = "movie_id_sequence",
+            sequenceName = "movie_id_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "customer_id_sequence"
+            generator = "movie_id_sequence"
     )
     private Long id;
     private String title;
