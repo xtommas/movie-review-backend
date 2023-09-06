@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +19,7 @@ public class Movie {
             strategy = GenerationType.SEQUENCE,
             generator = "movie_id_sequence"
     )
+    @Column(name="movie_id")
     private Long id;
     private String title;
     @Column(length = 512)
@@ -32,7 +34,26 @@ public class Movie {
     private Date releaseDate;
     private String director;
 
+    @OneToMany(mappedBy = "movie")
+    private List<Review> reviews;
+
     public Movie() {
+    }
+
+    public Movie(Long id, String title, String overview, Integer runtime, ArrayList<String> genres, String language, String poster, String trailer, float starRating, ArrayList<String> actors, Date releaseDate, String director, List<Review> reviews) {
+        this.id = id;
+        this.title = title;
+        this.overview = overview;
+        this.runtime = runtime;
+        this.genres = genres;
+        this.language = language;
+        this.poster = poster;
+        this.trailer = trailer;
+        this.starRating = starRating;
+        this.actors = actors;
+        this.releaseDate = releaseDate;
+        this.director = director;
+        this.reviews = reviews;
     }
 
     public Movie(Long id, String title, String overview, Integer runtime, ArrayList<String> genres, String language, String poster, String trailer, float starRating, ArrayList<String> actors, Date releaseDate, String director) {
@@ -48,6 +69,7 @@ public class Movie {
         this.actors = actors;
         this.releaseDate = releaseDate;
         this.director = director;
+        this.reviews = new ArrayList<Review>();
     }
 
     public Long getId() {
@@ -121,14 +143,6 @@ public class Movie {
         this.starRating = starRating;
     }
 
-    public ArrayList<String> getCast() {
-        return actors;
-    }
-
-    public void setCast(ArrayList<String> actors) {
-        this.actors = actors;
-    }
-
     public Date getReleaseDate() {
         return releaseDate;
     }
@@ -145,17 +159,20 @@ public class Movie {
         this.director = director;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Movie movie = (Movie) o;
-        return Float.compare(starRating, movie.starRating) == 0 && Objects.equals(id, movie.id) && Objects.equals(title, movie.title) && Objects.equals(overview, movie.overview) && Objects.equals(genres, movie.genres) && Objects.equals(language, movie.language) && Objects.equals(poster, movie.poster) && Objects.equals(trailer, movie.trailer) && Objects.equals(actors, movie.actors) && Objects.equals(releaseDate, movie.releaseDate) && Objects.equals(director, movie.director);
+    public ArrayList<String> getActors() {
+        return actors;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, overview, genres, language, poster, trailer, starRating, actors, releaseDate, director);
+    public void setActors(ArrayList<String> actors) {
+        this.actors = actors;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     @Override
@@ -164,6 +181,7 @@ public class Movie {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", overview='" + overview + '\'' +
+                ", runtime=" + runtime +
                 ", genres=" + genres +
                 ", language='" + language + '\'' +
                 ", poster='" + poster + '\'' +
@@ -172,6 +190,7 @@ public class Movie {
                 ", actors=" + actors +
                 ", releaseDate=" + releaseDate +
                 ", director='" + director + '\'' +
+                ", reviews=" + reviews +
                 '}';
     }
 }

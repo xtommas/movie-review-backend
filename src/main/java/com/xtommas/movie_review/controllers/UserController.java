@@ -6,10 +6,11 @@ import com.xtommas.movie_review.services.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -25,6 +26,17 @@ public class UserController {
     @GetMapping("/me")
     public UserDetails getCurrentUser(Authentication authentication) {
         return userService.loadUserByUsername(authentication.getName());
+    }
+
+    @PatchMapping("/me")
+    public User updateUser(Authentication authentication, @RequestBody Map<Object, Object> fields) {
+        User user = (User) userService.loadUserByUsername(authentication.getName());
+        fields.forEach( (k,v) -> {
+            Field field = ReflectionUtils.findField(User.class, k.toString());
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, user, v);
+        });
+        return userService.save(user);
     }
 
 }

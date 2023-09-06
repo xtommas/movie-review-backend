@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -41,7 +43,22 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<Role> authorities;
 
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
+
+
     public User() {
+    }
+
+    public User(Long userId, String name, String email, String username, String password, String picture, Set<Role> authorities, List<Review> reviews) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.picture = picture;
+        this.authorities = authorities;
+        this.reviews = reviews;
     }
 
     public User(Long userId, String name, String email, String username, String password, String picture, Set<Role> authorities) {
@@ -52,6 +69,7 @@ public class User implements UserDetails {
         this.password = password;
         this.picture = picture;
         this.authorities = authorities;
+        this.reviews = new ArrayList<Review>();
     }
 
     public Long getUserId() {
@@ -131,5 +149,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
