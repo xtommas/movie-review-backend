@@ -28,6 +28,12 @@ public class UserController {
         return userService.loadUserByUsername(authentication.getName());
     }
 
+    @GetMapping("/{username}")
+    public UserDetails getUserDetails(@PathVariable String username) {
+        return userService.loadUserByUsername(username);
+    }
+
+
     @PatchMapping("/me")
     public User updateUser(Authentication authentication, @RequestBody Map<Object, Object> fields) {
         User user = (User) userService.loadUserByUsername(authentication.getName());
