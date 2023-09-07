@@ -12,6 +12,8 @@
 
 The API supports the following endpoints and actions
 
+<div align="center">
+
 | Method | URL pattern               | Action                                             |
 |--------|---------------------------|----------------------------------------------------|
 | POST   | api/v1/auth/register      | Register a new user                                |
@@ -25,6 +27,8 @@ The API supports the following endpoints and actions
 | DELETE | api/v1/movies/{id}        | Delete a movie (ADMIN only)                        |
 | PATCH  | api/v1/movies/{id}        | Update movie information (ADMIN only)              |
 | POST   | api/v1/reviews/movie/{id} | Create a review for a movie                        |
+
+</div>
 
 ## ⚙️ Setup
 
