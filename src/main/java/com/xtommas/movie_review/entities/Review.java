@@ -1,5 +1,6 @@
 package com.xtommas.movie_review.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -21,9 +22,11 @@ public class Review {
     private Long id;
     @ManyToOne
     @JoinColumn(name="user_id")
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name="movie_id")
+    @JsonIgnore
     private Movie movie;
     @Column(updatable = false)
     @CreationTimestamp
@@ -40,6 +43,14 @@ public class Review {
         this.user = user;
         this.movie = movie;
         this.createdAt = createdAt;
+        this.text = text;
+        this.starRating = starRating;
+    }
+
+    public Review(Long id, User user, Movie movie, String text, Float starRating) {
+        this.id = id;
+        this.user = user;
+        this.movie = movie;
         this.text = text;
         this.starRating = starRating;
     }

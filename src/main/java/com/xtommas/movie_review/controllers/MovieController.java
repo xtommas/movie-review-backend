@@ -28,4 +28,6 @@ public class MovieController {
     void deleteMovie(@PathVariable Long id) {
         repository.deleteById(id);
     }
+
+    // make PATCH
 }
