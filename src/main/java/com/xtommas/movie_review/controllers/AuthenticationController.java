@@ -20,7 +20,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public User registerUser(@RequestBody RegistrationDTO body) {
-        return authenticationService.registerUser(body.getName(), body.getEmail(), body.getUsername(), body.getPassword(), body.getPicture());
+        return authenticationService.registerUser(body.getName(), body.getEmail(), body.getUsername(), body.getPassword());
     }
 
     @PostMapping("/login")

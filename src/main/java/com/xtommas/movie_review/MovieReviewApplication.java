@@ -30,7 +30,7 @@ public class MovieReviewApplication {
 			Set<Role> roles = new HashSet<>();
 			roles.add(adminRole);
 
-			User admin = new User(1L, "admin", "admin@moviereview.com", "admin", passwordEncoder.encode("admin"), "picture_path", roles);
+			User admin = new User(1L, "admin", "admin@moviereview.com", "admin", passwordEncoder.encode("admin"), roles);
 
 			userRepository.save(admin);
 		};

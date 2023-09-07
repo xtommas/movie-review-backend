@@ -27,45 +27,39 @@ public class Movie {
     private Integer runtime;
     private ArrayList<String> genres;
     private String language;
-    private String poster;
     private String trailer;
-    private float starRating;
     private ArrayList<String> actors;
     private Date releaseDate;
     private String director;
 
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
     public Movie() {
     }
 
-    public Movie(Long id, String title, String overview, Integer runtime, ArrayList<String> genres, String language, String poster, String trailer, float starRating, ArrayList<String> actors, Date releaseDate, String director, List<Review> reviews) {
+    public Movie(Long id, String title, String overview, Integer runtime, ArrayList<String> genres, String language, String trailer, ArrayList<String> actors, Date releaseDate, String director, List<Review> reviews) {
         this.id = id;
         this.title = title;
         this.overview = overview;
         this.runtime = runtime;
         this.genres = genres;
         this.language = language;
-        this.poster = poster;
         this.trailer = trailer;
-        this.starRating = starRating;
         this.actors = actors;
         this.releaseDate = releaseDate;
         this.director = director;
         this.reviews = reviews;
     }
 
-    public Movie(Long id, String title, String overview, Integer runtime, ArrayList<String> genres, String language, String poster, String trailer, float starRating, ArrayList<String> actors, Date releaseDate, String director) {
+    public Movie(Long id, String title, String overview, Integer runtime, ArrayList<String> genres, String language, String trailer, ArrayList<String> actors, Date releaseDate, String director) {
         this.id = id;
         this.title = title;
         this.overview = overview;
         this.runtime = runtime;
         this.genres = genres;
         this.language = language;
-        this.poster = poster;
         this.trailer = trailer;
-        this.starRating = starRating;
         this.actors = actors;
         this.releaseDate = releaseDate;
         this.director = director;
@@ -118,29 +112,12 @@ public class Movie {
     public void setLanguage(String language) {
         this.language = language;
     }
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
     public String getTrailer() {
         return trailer;
     }
 
     public void setTrailer(String trailer) {
         this.trailer = trailer;
-    }
-
-    public float getStarRating() {
-        return starRating;
-    }
-
-    public void setStarRating(float starRating) {
-        this.starRating = starRating;
     }
 
     public Date getReleaseDate() {
@@ -184,9 +161,7 @@ public class Movie {
                 ", runtime=" + runtime +
                 ", genres=" + genres +
                 ", language='" + language + '\'' +
-                ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
-                ", starRating=" + starRating +
                 ", actors=" + actors +
                 ", releaseDate=" + releaseDate +
                 ", director='" + director + '\'' +

@@ -5,14 +5,12 @@ public class RegistrationDTO {
     private String email;
     private String username;
     private String password;
-    private String picture;
 
-    public RegistrationDTO(String name, String email, String username, String password, String picture) {
+    public RegistrationDTO(String name, String email, String username, String password ) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.picture = picture;
     }
 
     public String getName() {
@@ -47,14 +45,6 @@ public class RegistrationDTO {
         this.password = password;
     }
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
     @Override
     public String toString() {
         return "RegistrationDTO{" +
@@ -62,7 +52,6 @@ public class RegistrationDTO {
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", picture='" + picture + '\'' +
                 '}';
     }
 }

@@ -33,7 +33,6 @@ public class User implements UserDetails {
     private String username;
     @JsonIgnore
     private String password;
-    private String picture;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="user_roles",
@@ -50,24 +49,22 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long userId, String name, String email, String username, String password, String picture, Set<Role> authorities, List<Review> reviews) {
+    public User(Long userId, String name, String email, String username, String password,  Set<Role> authorities, List<Review> reviews) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.picture = picture;
         this.authorities = authorities;
         this.reviews = reviews;
     }
 
-    public User(Long userId, String name, String email, String username, String password, String picture, Set<Role> authorities) {
+    public User(Long userId, String name, String email, String username, String password,  Set<Role> authorities) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.picture = picture;
         this.authorities = authorities;
         this.reviews = new ArrayList<Review>();
     }
@@ -98,14 +95,6 @@ public class User implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 
     @Override
